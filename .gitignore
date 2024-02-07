@@ -15,7 +15,14 @@
 *.exe
 *.out
 *.app
+*.asm~
 
 # Text files
 *.docx
 *.pdf
+
+# Image files
+*.png
+*.jpg
+*.jpeg
+
