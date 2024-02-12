@@ -6,7 +6,7 @@ s2len equ $-string2
 sys.write equ 4
 sys.call equ 1
 sys.exit equ 1
-sys.restart equ
+sys.restart equ 0
 
 section .text
 global _start
