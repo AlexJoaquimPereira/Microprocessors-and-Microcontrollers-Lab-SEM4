@@ -12,44 +12,45 @@ section .text
 global _start
 
 _start:
-    MOV eax, 4
-    MOV ebx, 1
-    MOV ecx, s1
-    MOV edx, s1len
+    MOV EAX, 4
+    MOV EBX, 1
+    MOV ECX, s1
+    MOV EDX, s1len
     int 0x80
 
-    MOV eax, 3
-    MOV ebx, 2
-    MOV ecx, num1
-    MOV edx, 4
+    MOV EAX, 3
+    MOV EBX, 2
+    MOV ECX, num1
+    MOV EDX, 4
     int 0x80
 
-    MOV eax, 3
-    MOV ebx, 2
-    MOV ecx, num2
-    MOV edx, 4
+    MOV EAX, 3
+    MOV EBX, 2
+    MOV ECX, num2
+    MOV EDX, 4
     int 0x80
 
-    MOV eax, [num1]; We can use atmost one mem location
-    SUB eax, '0'; to convert ASCII to decimal
-    MOV ebx, [num2]; stores addr of num2 to ebx
-    SUB ebx, '0'
-    ADD eax, ebx; performs actual addition on the operands
-    SUB eax, '0'
-    MOV [num1], eax; moves value in eax to num1
+    ;If we use AX, BX registers the garbage values don't arise it seems
+    MOV EAX, [num1]; We can use atmost one mem location
+    SUB EAX, '0'; to convert ASCII to decimal
+    MOV EBX, [num2]; stores addr of num2 to EBX
+    SUB EBX, '0'
+    ADD EAX, EBX; performs actual addition on the operands
+    SUB EAX, '0'
+    MOV [num1], EAX; moves value in EAX to num1
 
-    MOV eax, 4
-    MOV ebx, 1
-    MOV ecx, s2
-    MOV edx, s2len
+    MOV EAX, 4
+    MOV EBX, 1
+    MOV ECX, s2
+    MOV EDX, s2len
     int 0x80
 
-    MOV eax, 4
-    MOV ebx, 1
-    MOV ecx, num1
-    MOV edx, 4
+    MOV EAX, 4
+    MOV EBX, 1
+    MOV ECX, num1
+    MOV EDX, 4
     int 0x80
 
-MOV eax, 1
-MOV ebx, 0
+MOV EAX, 1
+MOV EBX, 0
 int 0x80
