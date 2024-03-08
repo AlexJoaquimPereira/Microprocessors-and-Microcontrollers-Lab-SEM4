@@ -1,5 +1,5 @@
 section .data
-slength db 'Enter the length: '
+slength db 10, 'Enter the length: '
 slengthlen equ $-slength
 sbreadth db 'Enter the breadth: '
 sbreadthlen equ $-sbreadth
@@ -7,8 +7,9 @@ speri db 'Perimeter: '
 sperilen equ $-speri
 sarea db 'Area: '
 sarealen equ $-sarea
-sthree db 'Enter length of three sides: '
+sthree db 10, 'Enter length of three sides: ', 10
 sthreelen equ $-sthree
+newline db 10
 
 section .bss
 length resb 4
@@ -47,13 +48,13 @@ _start:
     int 0x80
 
     ;perimeter = length + breadth
-    MOV EAX, [length]
-    SUB EAX, '0'
-    MOV EBX, [breadth]
-    SUB EBX, '0'
-    ADD EAX, EBX
-    ADD EAX, '0'
-    MOV [perimeter], EAX
+    MOV AL, [length]
+    SUB AL, '0'
+    MOV BL, [breadth]
+    SUB BL, '0'
+    ADD AL, BL
+    ADD AL, '0'
+    MOV [perimeter], AL
 
     ;perimeter = 2*perimeter
     MOV AL, 2
@@ -76,14 +77,20 @@ _start:
     MOV EDX, 8
     int 0x80
 
+    MOV EAX, 4
+    MOV EBX, 1
+    MOV ECX, newline
+    MOV EDX, 1
+    int 0x80
+
     ;area = length * breadth
     MOV AL, [length]
     SUB AL, '0'
     MOV BL, [breadth]
     SUB BL, '0'
     MUL BL
-    ADD BL, '0'
-    MOV [area], BL
+    ADD AX, '0'
+    MOV [area], AX
 
     ;print the area
     MOV EBX, 1
@@ -130,16 +137,16 @@ _start:
     MOV BL, [breadth]
     SUB BL, '0'
     MUL BL
-    ADD AL, '0'
-    MOV [area], AL
+    ADD AX, '0'
+    MOV [area], AX
 
     ;area = area / 2
-    MOV AL, 2
-    MOV BL, [area]
-    SUB BL, '0'
+    MOV AL, [area]
+    MOV BL, 2
+    SUB AL, '0'
     DIV BL
     ADD AL, '0'
-    MOV [area], BL
+    MOV [area], AL
 
     ;print the area
     MOV EBX, 1
@@ -180,16 +187,16 @@ _start:
     int 0x80
 
     ;perimeter = length + breadth + side
-    MOV EAX, [length]
-    SUB EAX, '0'
-    MOV EBX, [breadth]
-    SUB EBX, '0'
-    ADD EAX, EBX
-    MOV EBX, [side]
-    SUB EBX, '0'
-    ADD EAX, EBX
-    ADD EAX, '0'
-    MOV [perimeter], EAX
+    MOV AL, [length]
+    SUB AL, '0'
+    MOV BL, [breadth]
+    SUB BL, '0'
+    ADD AL, BL
+    MOV BL, [side]
+    SUB BL, '0'
+    ADD AL, BL
+    ADD AL, '0'
+    MOV [perimeter], AL
 
     ;print the perimeter
     MOV EBX, 1
@@ -202,6 +209,12 @@ _start:
     MOV EBX, 1
     MOV ECX, perimeter
     MOV EDX, 8
+    int 0x80
+
+    MOV EAX, 4
+    MOV EBX, 1
+    MOV ECX, newline
+    MOV EDX, 1
     int 0x80
 
 MOV EAX, 1
