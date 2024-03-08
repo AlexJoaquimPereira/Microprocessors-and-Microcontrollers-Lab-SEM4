@@ -1,63 +1,64 @@
-;write ALP to display multiples of 3 from 0 to 9
-section .bss
-num resb 4
-
+section .data
+odd db 'Multiples of 3 from 0 to 9: ', 10
+oddlen equ $-odd
+n db '3'
+newline db 10, 0
 section .text
-global _start
-
+global _start:
 _start:
-    ;initializing to 3
-    MOV EAX, [num]
-    MOV EAX, 3
-    SUB EAX, '0'
-    MOV [num], EAX
 
-    ;Incrementing and printing multiples 3 times
-    MOV EAX, 4
-    MOV EBX, 1
-    MOV ECX, num
-    MOV EDX, 4
-    int 0x80
-    INC [num]
-    INC [num]
-    INC [num]
+	mov eax,4
+	mov ebx,1
+	mov ecx,odd
+	mov edx,oddlen
+	int 80h
 
-    MOV EAX, 4
-    MOV EBX, 1
-    MOV ECX, 10
-    MOV EDX, 0
-    int 0x80
+	mov eax,4
+	mov ebx,1
+	mov ecx,n
+	mov edx,1
+	int 80h
 
-    MOV EAX, 4
-    MOV EBX, 1
-    MOV ECX, num
-    MOV EDX, 4
-    int 0x80
-    INC [num]
-    INC [num]
-    INC [num]
+	mov eax,4
+	mov ebx,1
+	mov ecx,newline
+	mov edx,1
+	int 80h
 
-    MOV EAX, 4
-    MOV EBX, 1
-    MOV ECX, 10
-    MOV EDX, 0
-    int 0x80
+	mov eax,[n]
+	inc eax
+	inc eax
+	inc eax
+	mov[n],eax
+	mov eax,4
+	mov ebx,1
+	mov ecx,n
+	mov edx,1
+	int 80h
 
-    MOV EAX, 4
-    MOV EBX, 1
-    MOV ECX, num
-    MOV EDX, 4
-    int 0x80
-    INC [num]
-    INC [num]
-    INC [num]
+	mov eax,4
+	mov ebx,1
+	mov ecx,newline
+	mov edx,1
+	int 80h
 
-    MOV EAX, 4
-    MOV EBX, 1
-    MOV ECX, 10
-    MOV EDX, 0
-    int 0x80
+	mov eax,[n]
+	inc eax
+	inc eax
+	inc eax
+	mov[n],eax
+	mov eax,4
+	mov ebx,1
+	mov ecx,n
+	mov edx,1
+	int 80h
 
-MOV EAX, 1
-MOV EBX, 0
-int 0x80
+	mov eax,4
+	mov ebx,1
+	mov ecx,newline
+	mov edx,1
+	int 80h
+
+mov eax,1
+mov ebx,0
+int 80h
