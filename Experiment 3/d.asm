@@ -41,22 +41,22 @@ _start:
     int 0x80
 
     ;num1 = num1 + num2
-    MOV EAX, [num1]
-    SUB EAX, '0'
-    MOV EBX, [num2]
-    SUB EBX, '0'
-    ADD EAX, EBX
-    SUB EAX, '0'
-    MOV [num1], EAX
+    MOV AL, [num1]
+    SUB AL, '0'
+    MOV BL, [num2]
+    SUB BL, '0'
+    ADD AL, BL
+    ADD AL, '0'
+    MOV [num1], AL
 
     ;num1 = num1 + num3
-    MOV EAX, [num1]
-    SUB EAX, '0'
-    MOV EBX, [num3]
-    SUB EBX, '0'
-    ADD EAX, EBX
-    SUB EAX, '0'
-    MOV [num1], EAX
+    MOV AL, [num1]
+    SUB AL, '0'
+    MOV BL, [num3]
+    SUB BL, '0'
+    ADD AL, BL
+    ADD AL, '0'
+    MOV [num1], AL
 
     ;prints the sum
     MOV EAX, 4
@@ -69,6 +69,12 @@ _start:
     MOV EBX, 1
     MOV ECX, num1
     MOV EDX, 4
+    int 0x80
+
+    MOV EAX, 4
+    MOV EBX, 1
+    MOV ECX, 0xA
+    MOV EDX, 1
     int 0x80
 
 MOV EAX, 1
