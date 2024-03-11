@@ -46,27 +46,27 @@ _start:
     int 0x80
 
     ;compare num1 and num2
-    MOV EAX, [num1]
-    MOV EBX, [num2]
-    CMP EAX, EBX
+    MOV AL, [num1]
+    MOV BL, [num2]
+    CMP AL, BL
     JG COMPARE_1_3; num1 > num2 then test num1 > num3
     JL COMPARE_2_3; num1 < num2 then test num2 < num3
 
-    COMPARE_1_3:
-    MOV EAX, [num1]
-    MOV EBX, [num3]
-    CMP EAX, EBX
+COMPARE_1_3:
+    MOV AL, [num1]
+    MOV BL, [num3]
+    CMP AL, BL
     JG PRINT_1; if num1 > num3
     JL PRINT_3; if num1 < num3
 
-    COMPARE_2_3:
-    MOV EAX, [num2]
-    MOV EBX, [num3]
-    CMP EAX, EBX
+COMPARE_2_3:
+    MOV AL, [num2]
+    MOV BL, [num3]
+    CMP AL, BL
     JG PRINT_2;if num2 > num3
     JL PRINT_3;if num2 < num3
 
-    PRINT_1:
+PRINT_1:
     MOV EAX, 4
     MOV EBX, 1
     MOV ECX, num1
@@ -74,7 +74,7 @@ _start:
     int 0x80
     JMP END
 
-    PRINT_2:
+PRINT_2:
     MOV EAX, 4
     MOV EBX, 1
     MOV ECX, num2
@@ -82,7 +82,7 @@ _start:
     int 0x80
     JMP END
 
-    PRINT_3:
+PRINT_3:
     MOV EAX, 4
     MOV EBX, 1
     MOV ECX, num3
@@ -91,7 +91,6 @@ _start:
     JMP END
 
 END:
-
 MOV EAX, 1
 MOV EBX, 0
 int 0x80
