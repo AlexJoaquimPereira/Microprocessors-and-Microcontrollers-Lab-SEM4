@@ -1,9 +1,10 @@
-;Write an assembly language program to find the largest of two numbers.
 section .data
-str db 'Enter two numbers: '
+str db 'Enter two numbers: ', 10
 strlen equ $-str
-largest db 'The largest number is: '
+largest db 'The largest number is: ', 10
 largestlen equ $-largest
+equalmsg db 'Both numbers are equal', 0
+equalmsglen equ $ - equalmsg
 
 section .bss
 num1 resb 1
@@ -35,35 +36,42 @@ _start:
     MOV EAX, 4
     MOV EBX, 1
     MOV ECX, largest
-    MOV EDX, largestlen
+    MOV EDX, dword largestlen
     int 0x80
 
     ;compare num1 and num2
     MOV EAX, [num1]
     MOV EBX, [num2]
     CMP EAX, EBX
-    ;JE EQUAL; num1 == num2
-    JG GREATER; num1 > num2
-    JL SMALLER; num1 < num2
+    JE EQUAL    ; num1 == num2
+    JG GREATER  ; num1 > num2
+    JL SMALLER  ; num1 < num2
 
-    GREATER:
+EQUAL:
     MOV EAX, 4
     MOV EBX, 1
-    MOV EDX, num1
+    MOV ECX, equalmsg
+    MOV EDX, equalmsglen
+    int 0x80
+    JMP END     
+
+GREATER:
+    MOV EAX, 4
+    MOV EBX, 1
+    MOV ECX, num1
     MOV EDX, 1
     int 0x80
     JMP END
 
-    SMALLER:
+SMALLER:
     MOV EAX, 4
     MOV EBX, 1
-    MOV EDX, num2
-    MOV EDX, 1
+    MOV ECX, num2
+    MOV EDX, 1  
     int 0x80
     JMP END
 
 END:
-
 MOV EAX, 1
 MOV EBX, 0
 int 0x80
