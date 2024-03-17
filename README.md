@@ -27,10 +27,20 @@ My Microprocessors and Microcontrollers Laboratory course (CE470)
 	h. Write an assembly language program to find the multiples of 3 from 0 to 9.
 
 ## Experiment 4: JUMP AND COMPARISON OPERATIONS
-	**AIM**: To understand the working of Jump and Comparison operations and to use these operations in writing efficient assembly language programs.
+	AIM: To understand the working of Jump and Comparison operations and to use these operations in writing efficient assembly language programs.
 	a. Write an assembly language program to find the largest of two numbers.
 	b. Write an assembly language program to find the largest of three numbers.
 	c. Write an assembly language program to find the smallest of three numbers.
 	d. Write an assembly language program to check if the number is greater than 5 or lesser than 5.
 	e. Write an assembly language program to check whether the entered number is even or odd.
 	f. Write an assembly language program that compares two strings and checks if they are same string.
+
+## Experiment 5: STUDY OF MACROS
+	AIM: To understand the working of macros and to use macros in writing efficient assembly language programs.
+	a. Write an assembly language program to implement the write system call to display a number using macros.
+	b. Write an assembly language program to implement the write system call to display two inputs using macros
+	c. Write an assembly language program to implement the read system call using macros to accept a number and display it.
+	d. Write an assembly language program to implement the read system call using macros to accept two inputs and display it.
+	e. Write an assembly language program to implement calculator program using macros.
+	f. Write an assembly language program to print the fibonacci series till n.
+	g. Write an assembly language program to print your name 9 times.
