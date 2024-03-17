@@ -25,3 +25,12 @@ My Microprocessors and Microcontrollers Laboratory course (CE470)
 	f. Write an assembly language program to calculate the area of the circle.
 	g. Write an assembly language program to display all odd numbers from 0 to 9.
 	h. Write an assembly language program to find the multiples of 3 from 0 to 9.
+
+## Experiment 4: JUMP AND COMPARISON OPERATIONS
+	**AIM**: To understand the working of Jump and Comparison operations and to use these operations in writing efficient assembly language programs.
+	a. Write an assembly language program to find the largest of two numbers.
+	b. Write an assembly language program to find the largest of three numbers.
+	c. Write an assembly language program to find the smallest of three numbers.
+	d. Write an assembly language program to check if the number is greater than 5 or lesser than 5.
+	e. Write an assembly language program to check whether the entered number is even or odd.
+	f. Write an assembly language program that compares two strings and checks if they are same string.
