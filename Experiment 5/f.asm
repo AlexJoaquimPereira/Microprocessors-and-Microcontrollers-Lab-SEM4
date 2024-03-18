@@ -33,35 +33,27 @@ _start:
     write_string s1, s1len
     read_string n, 4
 
-    MOV EAX, [num1]
-    MOV EAX, '0'
-    MOV [num1], EAX
+    MOV ECX, 0
+    MOV [num1], byte '0'
+    MOV [num2], byte '1'
 
-    MOV EAX, [num2]
-    MOV EAX, '1'
-    MOV [num2], EAX
+fibo:
+    MOV AL, [num1]
+    SUB AL, '0'
+    MOV BL, [num2]
+    SUB BL, '0'
+    ADD AL, BL        ; num1 = num1 + num2
+    MOV [temp], AL    ; temp = num1
+    MOV [num1], [num2]; num1 = num2
+    MOV [num2], AL    ; num2 = num1
+    ADD AL, '0'
+    write_string temp, 4
+    write_string 10, 1
 
-    MOV ECX, [n]
-    SUB ECX, '0'
-    fibo:
-        write_string num1, 4
-        write_string 10, 1
-        XOR EAX, EAX
-        XOR EBX, EBX
-        XOR EDX, EDX
-        MOV AL, [num1]
-        SUB AL, '0'
-        MOV BL, [num2]
-        SUB BL, '0'
-        MOV DL, [temp]
-        MOV DL, BL; temp = num2
-        ADD BL, AL; num2 = num1 + num2
-        ADD AL, '0'
-        ADD AL, '0'
-        ADD DL, '0'
-        MOV [num1], DL; num1 = temp
-        MOV [num2], BL
-        LOOP fibo
+    INC ECX
+    CMP ECX, [n]
+    JB fibo
+
 
 MOV EAX, 1
 MOV EBX, 0
