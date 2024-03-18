@@ -1,16 +1,18 @@
 %MACRO write_string 2
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, %1
-    mov edx, %2
+    MOV EAX, 4
+    MOV EBX, 1
+    PUSH ECX
+    MOV ECX, %1
+    MOV EDX, %2
     int 0x80
+    POP ECX
 %ENDMACRO
 
 %MACRO read_string 2
-    mov eax, 3
-    mov ebx, 2
-    mov ecx, %1
-    mov edx, %2
+    MOV EAX, 3
+    MOV EBX, 2
+    MOV ECX, %1
+    MOV EDX, %2
     int 0x80
 %ENDMACRO
 
@@ -33,8 +35,10 @@ _start:
 	write_string s2, s2l
 
     MOV ECX, 9
-    LOOP write_string name, 40
+    loop_name:
+        write_string name, 40
+        LOOP loop_name
 
-mov eax, 1
-mov ebx, 0
+MOV EAX, 1
+MOV EBX, 0
 int 0x80
