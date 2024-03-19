@@ -1,60 +1,101 @@
-%MACRO write_string 2
-    MOV EAX, 4
-    MOV EBX, 1
-    PUSH ECX
-    MOV ECX, %1
-    MOV EDX, %2
-    int 0x80
-    POP ECX
-%ENDMACRO
+%macro write_string 2
+	mov eax, 4
+	mov ebx, 1
+	mov ecx, %1
+	mov edx, %2
+	int 80h
+%endmacro
 
-%MACRO read_string 2
-    MOV EAX, 3
-    MOV EBX, 2
-    MOV ECX, %1
-    MOV EDX, %2
-    int 0x80
-%ENDMACRO
+%macro read_string 2
+	mov eax, 3
+	mov ebx, 2
+	mov ecx, %1
+	mov edx, %2
+	int 80h
+%endmacro
+
+%macro fibonacci 3
+	mov al, [%1]
+	mov bl, [%2]
+	sub al, '0'
+	sub bl, '0'
+	add al, bl ; a = a + b
+	add al, '0'
+	mov [%3], al
+	int 80h
+%endmacro
 
 section .data
-s1 db 'Enter the limit: ', 10
-s1len equ $-s1
+	nl db "", 10
+	nllen equ $-nl
+	ask db 'Enter the limit: '
+	asklen equ $-ask
+	show db 'Fibonacci series: '
+	showlen equ $-show
+	space db ' '
+	spacelen equ $-space
+	newline db 10
 
 section .bss
-n resb 4
-num1 resb 4
-num2 resb 4
-temp resb 4
+	i resb 1
+	n resb 4
+	a resb 4
+	b resb 4
+	c resb 4
+
 
 section .text
-global _start
-
+	global _start
 _start:
-    write_string s1, s1len
-    read_string n, 4
 
-    MOV ECX, 0
-    MOV [num1], byte '0'
-    MOV [num2], byte '1'
+	write_string ask, asklen
+	read_string n, 4
+	write_string show, showlen
 
-fibo:
-    MOV AL, [num1]
-    SUB AL, '0'
-    MOV BL, [num2]
-    SUB BL, '0'
-    ADD AL, BL        ; num1 = num1 + num2
-    MOV [temp], AL    ; temp = num1
-    MOV [num1], [num2]; num1 = num2
-    MOV [num2], AL    ; num2 = num1
-    ADD AL, '0'
-    write_string temp, 4
-    write_string 10, 1
+	mov [i], byte '0'
+	mov [a], byte '0'
+	mov [b], byte '1'
 
-    INC ECX
-    CMP ECX, [n]
-    JB fibo
+	mov al, [i]
+	mov bl, [n]
+	cmp al, bl
+	je exit
 
+	write_string a, 4 ;print 0
+	write_string space, spacelen
+	inc byte [i]
 
-MOV EAX, 1
-MOV EBX, 0
-int 0x80
+	mov al, [i]
+	mov bl, [n]
+	cmp al, bl
+	je exit
+
+	write_string b, 4 ;print 1
+	write_string space, spacelen
+	inc byte [i]
+	mov al, [i]
+	mov bl, [n]
+	cmp al, bl
+	je exit
+	jmp loop
+
+	loop:
+		fibonacci a, b, c
+		write_string c, 4 ;print next number
+		write_string space, spacelen
+		mov bl, [b]
+		mov [a], bl	;b = a
+		mov bl, [c]
+		mov [b], bl	;c = b
+		inc byte [i];i++
+		mov al, [i]
+		mov bl, [n]
+		cmp al, bl	;if(i == n)
+		je exit
+		jmp loop
+
+exit:
+	write_string newline, 1
+	mov eax, 1
+	mov ebx, 0
+	int 80h
