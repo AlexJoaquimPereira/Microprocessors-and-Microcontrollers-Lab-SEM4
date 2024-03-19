@@ -1,8 +1,16 @@
 %MACRO read_string 2
-    mov eax, 3
-    mov ebx, 2
-    mov ecx, %1
-    mov edx, %2
+    MOV EAX, 3
+    MOV EBX, 2
+    MOV ECX, %1
+    MOV EDX, %2
+    int 0x80
+%ENDMACRO
+
+%MACRO write_string 2
+    MOV EAX, 4
+    MOV EBX, 1
+    MOV ECX, %1
+    MOV EDX, %2
     int 0x80
 %ENDMACRO
 
@@ -21,45 +29,20 @@ num2 resb 4
 section .text
 global _start
 _start:
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, s
-    mov edx, sl
-    int 0x80
-
+    write_string s, s1
 	read_string num1, 4
 	read_string num2, 4
 
-    mov eax, 4
-	mov ebx, 1
-	mov ecx, s1
-	mov edx, s1l
-	int 0x80
+    write_string s1, s1l
 
-    mov eax, 4
-	mov ebx, 1
-	mov ecx, num1
-	mov edx, 4
-	int 0x80
+    write_string num1, 4
 
-    mov eax, 4
-	mov ebx, 1
-	mov ecx, s2
-	mov edx, s2l
-	int 0x80
+    write_string s2, s2l
 
-    mov eax, 4
-	mov ebx, 1
-	mov ecx, num2
-	mov edx, 4
-	int 0x80
+    write_string num2, 4
 
-    mov eax, 4
-	mov ebx, 1
-	mov ecx, 10
-	mov edx, 1
-	int 0x80
+    write_string 10, 1
 
-mov eax, 1
-mov ebx, 0
+MOV EAX, 1
+MOV EBX, 0
 int 0x80
