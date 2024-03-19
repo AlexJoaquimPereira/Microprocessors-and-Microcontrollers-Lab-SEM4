@@ -1,17 +1,59 @@
 %MACRO write_string 2
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, %1
-    mov edx, %2
+    MOV EAX, 4
+    MOV EBX, 1
+    MOV ECX, %1
+    MOV EDX, %2
     int 0x80
 %ENDMACRO
 
 %MACRO read_string 2
-    mov eax, 3
-    mov ebx, 2
-    mov ecx, %1
-    mov edx, %2
+    MOV EAX, 3
+    MOV EBX, 2
+    MOV ECX, %1
+    MOV EDX, %2
     int 0x80
+%ENDMACRO
+
+%MACRO addition 3
+    MOV AL, [%1]
+    SUB AL, '0'
+    MOV BL, [%2]
+    SUB BL, '0'
+    ADD AL, BL
+    ADD Al, '0'
+    MOV [%3], AL
+%ENDMACRO
+
+%MACRO subtraction 3
+    MOV AL, [%1]
+    SUB AL, '0'
+    MOV BL, [%2]
+    SUB BL, '0'
+    SUB AL, BL
+    ADD AL, '0'
+    MOV [%3], AL
+%ENDMACRO
+
+%MACRO multiplication 3
+    MOV AL, [%1]
+    SUB AL, '0'
+    MOV BL, [%2]
+    SUB BL, '0'
+    MUL BL
+    ADD AL, '0'
+    MOV [%3], AL
+%ENDMACRO
+
+%MACRO division 4
+    MOV AL, [%1]
+    SUB AL, '0'
+    MOV BL, [%2]
+    SUB BL, '0'
+    DIV BL
+    ADD AH, '0'
+    ADD AL, '0'
+    MOV [%3], AL
+    MOV [%4], AH
 %ENDMACRO
 
 section .data
@@ -39,71 +81,27 @@ section .text
 global _start
 
 _start:
-    ;Entering two numbers
     write_string s1, s1len
-
     read_string num1, 4
-
     read_string num2, 4
 
-    ;Addition
-    MOV AL, [num1]; We can use atmost one mem location
-    SUB AL, '0'; to convert ASCII to decimal
-    MOV BL, [num2]; stores addr of num2 to EBX
-    SUB BL, '0'
-    ADD AL, BL; performs actual addition on the operands
-    ADD Al, '0'
-    MOV [result], AL; moves value in EAX to num1
-
+    addition num1, num2, result
     write_string s2, s2len
-
     write_string result, 4
 
-    ;Subtraction
-    MOV AL, [num1]
-    SUB AL, '0'
-    MOV BL, [num2]
-    SUB BL, '0'
-    SUB AL, BL
-    ADD AL, '0'
-    MOV [result], AL
-
+    subtraction num1, num2, result
     write_string s3, s3len
-
     write_string result, 4
 
-    ;Multiplication
-    MOV AL, [num1]
-    SUB AL, '0'
-    MOV BL, [num2]
-    SUB BL, '0'
-    MUL BL
-    ADD AL, '0'
-    MOV [result], AL
-
+    multiplication num1, num2, result
     write_string s4, s4len
-
     write_string result, 4
 
-    ;Division
-    MOV AL, [num1]
-    SUB AL, '0'
-    MOV BL, [num2]
-    SUB BL, '0'
-    DIV BL
-    ADD AH, '0'
-    ADD AL, '0'
-    MOV [result], AL
-    MOV [result2], AH
-
+    division num1, num2, result, result2
     write_string s5, s5len
-
     write_string result, 4
-
     write_string s6, s6len
-
     write_string result2, 4
-
     write_string newline, 1
 
 MOV EAX, 1
