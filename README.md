@@ -44,3 +44,32 @@ My Microprocessors and Microcontrollers Laboratory course (CE470)
 	e. Write an assembly language program to implement calculator program using macros.
 	f. Write an assembly language program to print the fibonacci series till n.
 	g. Write an assembly language program to print your name 9 times.
+
+## Experiment 6: Study of Procedures
+	a. Write an assembly language program to implement Fibonacci series using procedures
+	b. Write an assembly language program to compute factorial using procedures
+	c. Write an assembly language program to implement calculator program using procedures
+
+## Experiment 7: Arithmetic operations on multidigit numbers
+	a. Write an assembly language program to perform addition of multidigit number
+	b. Write an assembly language program to perform subtraction of multidigit numbers
+
+## Experiment 8: Working with arrays
+	a. Write an assembly language program to enter elements in an array and display the array
+	b. Write an assembly language program to count the number of positive and negative elements in a hardcoded array
+	c. Write an assembly language program to find the number of even and odd numbers in an array
+	d. Write an assembly language program to find the number of elements greater than or less than 5 in an array
+	e. Write an assembly language program to find the sum of the elements in an array
+
+## Experiment 9: Searching algorithms
+	a. Write an assembly language program to perform linear search
+	b. Write an assembly language program to perform binary search
+
+## Experiment 10: Sorting algorithms
+	a. Write an assembly language program to perform bubble sort
+	b. Write an assembly language program to perform insertion sort
+	c. Write an assembly language program to perform selection sort
+
+## Experiment 11: Arduino program to display a blinking LED
+
+## Experiment 12: Arduino program to simulate a traffic signal
